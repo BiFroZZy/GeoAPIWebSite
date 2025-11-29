@@ -1,4 +1,4 @@
-module WebSite
+module Geoapi
 
 go 1.24.1
 
