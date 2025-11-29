@@ -2,8 +2,8 @@ package main
 
 import (
 	"Geoapi/cmd/handlers"
-)	
+)
 
-func main(){
+func main() {
 	handlers.HandleRequests()
 }
