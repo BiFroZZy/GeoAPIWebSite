@@ -7,7 +7,7 @@ import (
 )
 
 func HelpPage(w http.ResponseWriter, r *http.Request){
-	tmpl, err := template.ParseFiles("templates/help_page.html", "templates/header.html", "templates/footer.html")
+	tmpl, err := template.ParseFiles("web/templates/help_page.html", "web/templates/header.html", "web/templates/footer.html")
 	if err != nil{
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
@@ -20,7 +20,7 @@ func HelpPage(w http.ResponseWriter, r *http.Request){
 }
 
 func SettingsPage(w http.ResponseWriter, r *http.Request){
-	tmpl, err := template.ParseFiles("templates/settings_page.html", "templates/header.html", "templates/footer.html")
+	tmpl, err := template.ParseFiles("web/templates/settings_page.html", "web/templates/header.html", "web/templates/footer.html")
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return 
@@ -33,7 +33,7 @@ func SettingsPage(w http.ResponseWriter, r *http.Request){
 }
 
 func AboutPage(w http.ResponseWriter, r *http.Request){
-	tmpl, err := template.ParseFiles("templates/about_page.html", "templates/header.html", "templates/footer.html")
+	tmpl, err := template.ParseFiles("web/templates/about_page.html", "web/templates/header.html", "web/templates/footer.html")
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return 
@@ -51,7 +51,7 @@ func HomePage(w http.ResponseWriter, r *http.Request){
 		return
 	}
 	
-	tmpl, err := template.ParseFiles("templates/home_page.html", "templates/header.html", "templates/footer.html")
+	tmpl, err := template.ParseFiles("web/templates/home_page.html", "web/templates/header.html", "web/templates/footer.html")
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return 
@@ -64,7 +64,7 @@ func HomePage(w http.ResponseWriter, r *http.Request){
 }
 
 func SearchPage(w http.ResponseWriter, r *http.Request){
-	tmpl, err := template.ParseFiles("templates/search_page.html", "templates/header.html", "templates/footer.html")
+	tmpl, err := template.ParseFiles("web/templates/search_page.html", "web/templates/header.html", "web/templates/footer.html")
 	if err != nil{
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
