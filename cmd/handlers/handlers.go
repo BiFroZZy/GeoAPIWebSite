@@ -7,7 +7,7 @@ import (
 
 func HandleRequests(){
 	fs := http.FileServer(http.Dir("static")) // хранение статитечских данных
-	http.Handle("/static/", http.StripPrefix("/static/", fs))
+	http.Handle("/web/static/", http.StripPrefix("/web/static/", fs))
 
 	// обьявление страниц на хэдере
 	http.HandleFunc("/", pagehandlers.HomePage)
