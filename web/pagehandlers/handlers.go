@@ -35,16 +35,21 @@ func SearchPage(c echo.Context) error{
 	// инициализация страницы
 	query := c.FormValue("q")
 	if query == "" {
-		http.Error(c.Response(), "Нужно что-то ввести", http.StatusBadRequest)
-		return c.Render(http.StatusOK, "search_page", map[string]interface{}{
-		"Title": "Home",
-		"Error": "Введите что-то",
-	})
+		return c.Render(http.StatusBadRequest, "search_page", map[string]interface{}{
+			"Title": "Search",
+			"Error": "Введите поисковый запрос",
+			"Query": "",
+		})
 	}
+
 	locations, err := api.SearchLocations(query) 
-	if err != nil{
-		http.Error(c.Response(), err.Error(), http.StatusInternalServerError)
-		return nil
+	if err != nil {
+		c.Logger().Errorf("Search API error: %v", err)
+		return c.Render(http.StatusInternalServerError, "search_page", map[string]interface{}{
+			"Title": "Search",
+			"Error": "Произошла ошибка при поиске. Попробуйте позже.",
+			"Query": query,
+		})
 	}
 	type ViewLocation struct{
 		ID 		string 		

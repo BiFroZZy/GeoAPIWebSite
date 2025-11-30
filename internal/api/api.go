@@ -35,18 +35,18 @@ type APIResponse struct {
 	} `json:"result"`
 }
 
-func GenerateStaticMapURL(lat, lon float64) string {
-	apiKey := os.Getenv("API_KEY")
-	return fmt.Sprintf("%s?zoom=%s&size=%s&center=%f,%f&key=%s",
-		staticMapURL, zoom, imageSize, lon, lat, apiKey)
+func GenerateStaticMapURL(lat, lon float64) (string) {
+    apiKey := os.Getenv("API_KEY")
+    if apiKey == "" {
+        return "Can't get API!"
+    }
+    return fmt.Sprintf("%s?zoom=%s&size=%s&center=%f,%f&key=%s",
+        staticMapURL, zoom, imageSize, lon, lat, apiKey)
 }
 
 func SearchLocations(query string) ([]Location, error) { // добавил lon lat в функцию
-	err := godotenv.Load()
-	if err != nil {
-		log.Fatal("Error loading .env file")
-	} // получение API 
-	
+	if err := godotenv.Load(); err != nil{log.Printf("Can't get .env file: %v", err)}
+	 // получение API 
 	apiKey := os.Getenv("API")
 
 	url := fmt.Sprintf("%s?q=%s&key=%s&fields=items.point,items.address_name,items.photo_ids", apiBaseURL, query, apiKey)
