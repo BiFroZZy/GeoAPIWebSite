@@ -2,86 +2,50 @@ package pagehandlers
 
 import (
 	"net/http"
-	"html/template"
 	"Geoapi/internal/api"
+	
+	"github.com/labstack/echo/v4"
 )
 
-func HelpPage(w http.ResponseWriter, r *http.Request){
-	tmpl, err := template.ParseFiles("web/templates/help_page.html", "web/templates/header.html", "web/templates/footer.html")
-	if err != nil{
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
-	}
-
-	err = tmpl.ExecuteTemplate(w, "help_page", nil)
-	if err != nil{
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-	}
+func HelpPage(c echo.Context) error{
+	return c.Render(http.StatusOK, "help_page", map[string]interface{}{
+		"Title": "Help",
+	})
 }
 
-func SettingsPage(w http.ResponseWriter, r *http.Request){
-	tmpl, err := template.ParseFiles("web/templates/settings_page.html", "web/templates/header.html", "web/templates/footer.html")
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return 
-	}
-
-	err = tmpl.ExecuteTemplate(w, "settings_page", nil)
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError) 
-	}
+func SettingsPage(c echo.Context) error{
+	return c.Render(http.StatusOK, "settings_page", map[string]interface{}{
+		"Title": "Settings",
+	})
 }
 
-func AboutPage(w http.ResponseWriter, r *http.Request){
-	tmpl, err := template.ParseFiles("web/templates/about_page.html", "web/templates/header.html", "web/templates/footer.html")
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return 
-	}
-
-	err = tmpl.ExecuteTemplate(w, "about_page", nil)
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError) 
-	}
+func AboutPage(c echo.Context) error{
+	return c.Render(http.StatusOK, "about_page", map[string]interface{}{
+		"Title": "About",
+	})
 }
 
-func HomePage(w http.ResponseWriter, r *http.Request){
-	if r.URL.Path != "/" {
-		http.NotFound(w, r) // добавлено только что 
-		return
-	}
-	
-	tmpl, err := template.ParseFiles("web/templates/home_page.html", "web/templates/header.html", "web/templates/footer.html")
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return 
-	}
-	
-	err = tmpl.ExecuteTemplate(w, "home_page", nil)
-	if err != nil{ 
-		http.Error(w, err.Error(), http.StatusInternalServerError) 
-	}
+func HomePage(c echo.Context) error{
+	return c.Render(http.StatusOK, "home_page", map[string]interface{}{
+		"Title": "Home",
+	})
 }
 
-func SearchPage(w http.ResponseWriter, r *http.Request){
-	tmpl, err := template.ParseFiles("web/templates/search_page.html", "web/templates/header.html", "web/templates/footer.html")
-	if err != nil{
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
-	} // инициализация страницы
-
-	query := r.URL.Query().Get("q") // считывает данные со строки поиска
+func SearchPage(c echo.Context) error{
+	// инициализация страницы
+	query := c.FormValue("q")
 	if query == "" {
-		http.Error(w, "Нужно что-то ввести", http.StatusBadRequest)
-		return
+		http.Error(c.Response(), "Нужно что-то ввести", http.StatusBadRequest)
+		return c.Render(http.StatusOK, "search_page", map[string]interface{}{
+		"Title": "Home",
+		"Error": "Введите что-то",
+	})
 	}
-	
 	locations, err := api.SearchLocations(query) 
 	if err != nil{
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
+		http.Error(c.Response(), err.Error(), http.StatusInternalServerError)
+		return nil
 	}
-
 	type ViewLocation struct{
 		ID 		string 		
 		Name 	string 	
@@ -90,12 +54,9 @@ func SearchPage(w http.ResponseWriter, r *http.Request){
 		Lon 	float64
 		MapURL  string // статитческий URL карты
 	}
-
 	var viewLocations []ViewLocation
-	
 	for _, loc := range locations{ 
 		mapURL := api.GenerateStaticMapURL(loc.Point.Lat, loc.Point.Lon) // функция которая генерирует URL для статической карты
-
 		vl := ViewLocation{
 			ID: 		loc.ID,
 			Name: 		loc.Name,
@@ -114,9 +75,5 @@ func SearchPage(w http.ResponseWriter, r *http.Request){
 		Query:     query,
 		Locations: viewLocations,
 	}
-
-	err = tmpl.ExecuteTemplate(w, "search_page", data)
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-	}
+	return c.Render(http.StatusOK, "search_page", data)
 }
