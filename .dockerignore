@@ -1,4 +1,10 @@
 .env
 .gitignore
 .git
+.idea/
+.vscode/
+*.log
+vendor/
+README.md
 Dockefile*
+docker-compose*
