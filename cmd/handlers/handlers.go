@@ -48,10 +48,10 @@ func HandleRequests(){
 	e.Static("/web/static", "web/static") 
 
 	e.GET("/", pagehandlers.HomePage)
-	e.GET("/settings_page", pagehandlers.SettingsPage)
-	e.GET("/about_page", pagehandlers.AboutPage)
-	e.GET("/help_page", pagehandlers.HelpPage)
-	e.GET("/search_page", pagehandlers.HomePage)
+	e.GET("/settings", pagehandlers.SettingsPage)
+	e.GET("/about", pagehandlers.AboutPage)
+	e.GET("/help", pagehandlers.HelpPage)
+	e.GET("/info", pagehandlers.HomePage)
 
 	e.Logger.Fatal(e.Start(":8081"))
 }

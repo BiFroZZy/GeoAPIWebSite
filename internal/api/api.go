@@ -44,9 +44,10 @@ func GenerateStaticMapURL(lat, lon float64) (string) {
         staticMapURL, zoom, imageSize, lon, lat, apiKey)
 }
 
-func SearchLocations(query string) ([]Location, error) { // добавил lon lat в функцию
+func SearchLocations(query string) ([]Location, error) { 
+	// добавил lon lat в функцию
 	if err := godotenv.Load(); err != nil{log.Printf("Can't get .env file: %v", err)}
-	 // получение API 
+	// получение API 
 	apiKey := os.Getenv("API")
 
 	url := fmt.Sprintf("%s?q=%s&key=%s&fields=items.point,items.address_name,items.photo_ids", apiBaseURL, query, apiKey)
