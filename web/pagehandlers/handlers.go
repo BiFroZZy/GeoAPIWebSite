@@ -1,9 +1,10 @@
 package pagehandlers
 
 import (
-	"net/http"
 	"Geoapi/internal/api"
-	
+	"Geoapi/internal/configs"
+	"net/http"
+
 	"github.com/labstack/echo/v4"
 )
 
@@ -33,6 +34,7 @@ func HomePage(c echo.Context) error{
 
 func SearchPage(c echo.Context) error{
 	// инициализация страницы
+	var cfg configs.Configs
 	query := c.FormValue("q")
 	if query == "" {
 		return c.Render(http.StatusBadRequest, "search_page", map[string]interface{}{
@@ -42,7 +44,7 @@ func SearchPage(c echo.Context) error{
 		})
 	}
 
-	locations, err := api.SearchLocations(query) 
+	locations, err := api.SearchLocations(query, cfg.APIkey) 
 	if err != nil {
 		c.Logger().Errorf("Search API error: %v", err)
 		return c.Render(http.StatusInternalServerError, "search_page", map[string]interface{}{
@@ -61,7 +63,7 @@ func SearchPage(c echo.Context) error{
 	}
 	var viewLocations []ViewLocation
 	for _, loc := range locations{ 
-		mapURL := api.GenerateStaticMapURL(loc.Point.Lat, loc.Point.Lon) // функция которая генерирует URL для статической карты
+		mapURL := api.GenerateStaticMapURL(loc.Point.Lat, loc.Point.Lon, cfg.APIkey) // функция которая генерирует URL для статической карты
 		vl := ViewLocation{
 			ID: 		loc.ID,
 			Name: 		loc.Name,
