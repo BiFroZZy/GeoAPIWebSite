@@ -11,5 +11,5 @@ WORKDIR /root/
 COPY --from=builder /app/main .
 COPY --from=builder /app/web/static ./web/static/
 COPY --from=builder /app/web/templates ./web/templates/
-EXPOSE 8081
+EXPOSE 8080
 CMD ["./main"]

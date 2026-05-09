@@ -1,24 +1,14 @@
 package pagehandlers
 
 import (
-	"Geoapi/internal/api"
-	"Geoapi/internal/configs"
 	"net/http"
 
 	"github.com/labstack/echo/v4"
+
+	"Geoapi/internal/api"
+	"Geoapi/internal/configs"
+	"Geoapi/internal/models"
 )
-
-func HelpPage(c echo.Context) error{
-	return c.Render(http.StatusOK, "help_page", map[string]interface{}{
-		"Title": "Help",
-	})
-}
-
-func SettingsPage(c echo.Context) error{
-	return c.Render(http.StatusOK, "settings_page", map[string]interface{}{
-		"Title": "Settings",
-	})
-}
 
 func AboutPage(c echo.Context) error{
 	return c.Render(http.StatusOK, "about_page", map[string]interface{}{
@@ -53,18 +43,11 @@ func SearchPage(c echo.Context) error{
 			"Query": query,
 		})
 	}
-	type ViewLocation struct{
-		ID 		string 		
-		Name 	string 	
-		Address string	
-		Lat		float64 // обьявление координат
-		Lon 	float64
-		MapURL  string // статитческий URL карты
-	}
-	var viewLocations []ViewLocation
+	
+	var viewLocations []models.ViewLocation
 	for _, loc := range locations{ 
 		mapURL := api.GenerateStaticMapURL(loc.Point.Lat, loc.Point.Lon, cfg.APIkey) // функция которая генерирует URL для статической карты
-		vl := ViewLocation{
+		vl := models.ViewLocation{
 			ID: 		loc.ID,
 			Name: 		loc.Name,
 			Address: 	loc.Address,
@@ -77,10 +60,10 @@ func SearchPage(c echo.Context) error{
 
 	data := struct {
 		Query     string
-		Locations []ViewLocation
+		Locations []models.ViewLocation
 	}{
 		Query:     query,
 		Locations: viewLocations,
 	}
-	return c.Render(http.StatusOK, "search_page", data)
+	return c.Render(http.StatusOK, "search_page.html", data)
 }

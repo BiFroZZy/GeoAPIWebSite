@@ -27,7 +27,6 @@ func GenerateStaticMapURL(lat, lon float64, apiKey string) (string) {
 
 func SearchLocations(query string, apiKey string) ([]models.Location, error) { 
 	// получение API 
-	// apiKey := os.Getenv("API_KEY")
 	logger := logger.Logger()
 	url := fmt.Sprintf("%s?q=%s&key=%s&fields=items.point,items.address_name,items.photo_ids", apiBaseURL, query, apiKey)
 
