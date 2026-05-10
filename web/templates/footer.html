@@ -1,39 +1,291 @@
 {{ define "footer" }}
-
 <link rel="stylesheet" href="/web/static/style.css">
-<p class="empty2">    </p>
 
 <footer class="site-footer">
+    <div class="footer-wave"></div>
+    
     <div class="footer-container">
         <div class="footer-top">
-
             <div class="footer-column">
-                <h3>Контакты</h3>
+                <h3><i class="fas fa-map-marked-alt"></i> Контакты</h3>
                 <ul class="footer-contacts">
-                    <li><i class="fas fa-map-marker-alt"></i> г. Казань, ул. Товарищеская, 31А</li>
-                    <li><i class="fas fa-phone"></i> <a href="tel:+7999999-99-99">+7(999)999-99-99</a></li>
-                    <li><i class="fas fa-envelope"></i> <a href="mailto:info@example.com">alan_lox@gmail.com</a></li>
+                    <li>
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>г. Казань, ул. Товарищеская, 31А</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-phone"></i>
+                        <a href="tel:+79999999999">+7 (999) 999-99-99</a>
+                    </li>
+                    <li>
+                        <i class="fas fa-envelope"></i>
+                        <a href="mailto:info@example.com">mail@gmail.com</a>
+                    </li>
                 </ul>
             </div>
             
             <div class="footer-column">
-                <h3>Навигация</h3>
+                <h3><i class="fas fa-compass"></i> Навигация</h3>
                 <ul class="footer-links">
-                    <li><a href="/">Главная</a></li>
-                    <li><a href="/services">Услуги</a></li>
-                    <li><a href="/portfolio">Портфолио</a></li>
-                    <li><a href="/contact">Контакты</a></li>
+                    <li><a href="/"><i class="fas fa-home"></i> Главная страница</a></li>
+                    <li><a href="/about"><i class="fas fa-info-circle"></i> Информация о нас</a></li>
                 </ul>
+            </div>
+            
+            <div class="footer-column">
+                <div class="newsletter">
+
+                </div>
             </div>
         </div>
         
         <div class="footer-bottom">
-            <div class="copyright">
-                &copy; 2025 ООО "". Все права защищены.
+            <div class="footer-backtotop">
+                <a href="#" class="back-to-top" id="backToTop">
+                    <i class="fas fa-chevron-up"></i>
+                    <span>Наверх</span>
+                </a>
             </div>
         </div>
     </div>
 </footer>
 
+<script>
+// Плавная прокрутка к началу страницы
+document.getElementById('backToTop')?.addEventListener('click', function(e) {
+    e.preventDefault();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+</script>
 
+<style>
+    /* Footer Styles */
+.site-footer {
+    position: relative;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    color: #ffffff;
+    margin-top: 4rem;
+    padding-top: 3rem;
+}
+
+.footer-wave {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 50px;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 120' preserveAspectRatio='none'%3E%3Cpath d='M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z' fill='%23667eea' opacity='0.3'%3E%3C/path%3E%3C/svg%3E");
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.footer-top {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 3rem;
+    padding: 3rem 0;
+}
+
+.footer-column h3 {
+    font-size: 1.3rem;
+    margin-bottom: 1.5rem;
+    position: relative;
+    display: inline-block;
+}
+
+.footer-column h3 i {
+    margin-right: 0.5rem;
+    color: #667eea;
+}
+
+.footer-column h3::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 0;
+    width: 50px;
+    height: 3px;
+    background: linear-gradient(90deg, #667eea, #764ba2);
+    border-radius: 2px;
+}
+
+.footer-contacts, .footer-links {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-contacts li, .footer-links li {
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+.footer-contacts li i {
+    width: 25px;
+    color: #667eea;
+}
+
+.footer-contacts a, .footer-links a {
+    color: #ffffff;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.footer-contacts a:hover, .footer-links a:hover {
+    color: #667eea;
+    transform: translateX(5px);
+    display: inline-block;
+}
+
+.footer-links li a i {
+    margin-right: 0.5rem;
+    font-size: 0.9rem;
+}
+
+/* Social Links */
+.social-links {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.social-icon {
+    width: 45px;
+    height: 45px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.3rem;
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+.social-icon:hover {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    transform: translateY(-5px);
+}
+
+/* Newsletter */
+.newsletter p {
+    margin-bottom: 0.8rem;
+    font-size: 0.9rem;
+}
+
+.subscribe-form {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.subscribe-form input {
+    flex: 1;
+    padding: 0.8rem;
+    border: none;
+    border-radius: 25px;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    outline: none;
+}
+
+.subscribe-form input::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.subscribe-form button {
+    padding: 0.8rem 1.2rem;
+    border: none;
+    border-radius: 25px;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.subscribe-form button:hover {
+    transform: scale(1.05);
+}
+
+/* Footer Bottom */
+.footer-bottom {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 2rem 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.footer-copyright {
+    text-align: left;
+}
+
+.footer-copyright p {
+    margin: 0.3rem 0;
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.made-with i {
+    color: #ff6b6b;
+    animation: heartbeat 1.5s ease infinite;
+}
+
+@keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+
+.back-to-top {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.7rem 1.5rem;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 25px;
+    color: white;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.back-to-top:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-5px);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .footer-top {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    
+    .footer-bottom {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .footer-copyright {
+        text-align: center;
+    }
+    
+    .social-links {
+        justify-content: center;
+    }
+    
+    .subscribe-form {
+        max-width: 300px;
+        margin: 0 auto;
+    }
+}
+</style>
 {{ end }}

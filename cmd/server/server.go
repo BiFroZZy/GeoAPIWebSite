@@ -4,7 +4,7 @@ import (
 	"context"
 	"html/template"
 	"io"
-	"net/http"
+	// "net/http"
 
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
@@ -54,36 +54,32 @@ func (s *Server) SetMiddleware(){
 
 func (s *Server) SetRoutes(){
 	s.e.GET("/", pagehandlers.HomePage)
-	s.e.GET("/settings", pagehandlers.SettingsPage)
 	s.e.GET("/about", pagehandlers.AboutPage)
-	s.e.GET("/help", pagehandlers.HelpPage)
 	s.e.GET("/info", pagehandlers.HomePage)
 }
 
-func (s *Server) SetTemplates(){
-	templates, err := template.ParseFiles( 
-		"web/templates/footer.html",
-	    "web/templates/header.html",
-		"web/templates/about_page.html",
-		"web/templates/home_page.html",
-		"web/templates/help_page.html",
-		"web/templates/search_page.html",
-		"web/templates/settings_page.html",
+func (s *Server) SetTemplates() error {
+	templates, err := template.ParseGlob( 
+		"web/templates/*.html",
 	); 
 	if err != nil {
 		logger.Error().Err(err).Msg("Failed to get templates")
+		return err
 	}
 
 	s.e.Renderer = &Template{templates: templates}
 
-	fs := http.FileServer(http.Dir("static")) // хранение статитечских данных
-	http.Handle("/web/static/", http.StripPrefix("/web/static/", fs))
+	// fs := http.FileServer(http.Dir("static")) // хранение статитечских данных
+	// http.Handle("/web/static/", http.StripPrefix("/web/static/", fs))
 
-	s.e.Static("/web/static", "web/static") 
+	// s.e.Static("/web/static", "web/static") 
+	return nil
 }
 func (s *Server) Start() error{
 	s.SetMiddleware()
-	s.SetTemplates()
+	if err := s.SetTemplates(); err != nil{
+		return err
+	}
 	s.SetRoutes()
 	if err := s.e.Start(s.cfg.ServerPort); err !=nil{
 		logger.Error().Err(err).Msg("Failed to start server")
