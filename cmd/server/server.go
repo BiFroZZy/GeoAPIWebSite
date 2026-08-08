@@ -66,13 +66,7 @@ func (s *Server) SetTemplates() error {
 		logger.Error().Err(err).Msg("Failed to get templates")
 		return err
 	}
-
 	s.e.Renderer = &Template{templates: templates}
-
-	// fs := http.FileServer(http.Dir("static")) // хранение статитечских данных
-	// http.Handle("/web/static/", http.StripPrefix("/web/static/", fs))
-
-	// s.e.Static("/web/static", "web/static") 
 	return nil
 }
 func (s *Server) Start() error{

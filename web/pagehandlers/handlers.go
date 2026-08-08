@@ -23,14 +23,16 @@ func HomePage(c echo.Context) error{
 }
 
 func SearchPage(c echo.Context) error{
-	// инициализация страницы
-	var cfg configs.Configs
+	cfg, err := configs.Load()
+	if err != nil{
+		return err
+	}
 	query := c.FormValue("q")
 	if query == "" {
 		return c.Render(http.StatusBadRequest, "search_page", map[string]interface{}{
 			"Title": "Search",
 			"Error": "Введите поисковый запрос",
-			"Query": "",
+			"Query": "Nothing is here",
 		})
 	}
 
@@ -65,5 +67,5 @@ func SearchPage(c echo.Context) error{
 		Query:     query,
 		Locations: viewLocations,
 	}
-	return c.Render(http.StatusOK, "search_page.html", data)
+	return c.Render(http.StatusOK, "search_page", data)
 }

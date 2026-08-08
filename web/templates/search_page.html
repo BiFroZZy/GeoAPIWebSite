@@ -1,23 +1,17 @@
 {{ define "search_page" }}
-
 {{ template "header" }}
 
 
-
 <body>
-    <!-- Декоративные боковые панели -->
     <div class="search-sidebar-left"></div>
     <div class="search-sidebar-right"></div>
 
     <div class="search-container">
-        <!-- Поисковая форма -->
         <div class="search-wrapper">
             <form action="/info" method="get" class="search-form">
                 <input type="text" name="q" class="search-input" placeholder="🔍 Поиск достопримечательностей, мест, отелей..." value="{{ .Query }}" required>
             </form>
         </div>
-
-        <!-- Результаты поиска -->
         <div class="results-header">
             <div class="results-title">
                 <i class="fas fa-search"></i>
@@ -82,7 +76,6 @@
         </div>
     </div>
 <style>
-    /* Search Page Specific Styles */
     .search-container {
         max-width: 1200px;
         margin: 0 auto;
@@ -91,8 +84,6 @@
         z-index: 2;
         background-color: black;
     }
-
-    /* Декоративные боковые панели */
     .search-sidebar-left,
     .search-sidebar-right {
         position: fixed;
@@ -106,18 +97,14 @@
         z-index: 1;
         pointer-events: none;
     }
-
     .search-sidebar-left {
         left: 20px;
         border-left: 3px solid rgba(102, 126, 234, 0.4);
     }
-
     .search-sidebar-right {
         right: 20px;
         border-right: 3px solid rgba(102, 126, 234, 0.4);
     }
-
-    /* Поисковая форма */
     .search-wrapper {
         background: rgba(255, 255, 255, 0.1);
         backdrop-filter: blur(10px);
@@ -164,8 +151,6 @@
         color: rgba(255, 255, 255, 0.6);
         pointer-events: none;
     }
-
-    /* Результаты поиска */
     .results-header {
         text-align: center;
         margin-bottom: 2rem;
@@ -202,8 +187,6 @@
         margin-right: 0.5rem;
         color: #ffd700;
     }
-
-    /* Карточки результатов */
     .results-grid {
         display: flex;
         flex-direction: column;
@@ -273,8 +256,6 @@
         color: #fff;
         text-decoration: underline;
     }
-
-    /* Карта */
     .map-container {
         margin-top: 1rem;
         text-align: center;
@@ -294,8 +275,6 @@
         box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
         border-color: #ffd700;
     }
-
-    /* Нет результатов */
     .no-results {
         text-align: center;
         padding: 4rem 2rem;
@@ -328,7 +307,6 @@
         font-size: 0.9rem;
     }
 
-    /* Адаптивность */
     @media (max-width: 1024px) {
         .search-sidebar-left,
         .search-sidebar-right {
@@ -358,7 +336,6 @@
         }
     }
 
-    /* Анимации */
     @keyframes fadeInUp {
         from {
             opacity: 0;

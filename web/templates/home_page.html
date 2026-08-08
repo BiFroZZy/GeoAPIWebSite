@@ -3,21 +3,16 @@
 {{ template "header" }}
 
 <body>
-    <!-- Декоративные боковые панели -->
     <div class="home-sidebar-left"></div>
     <div class="home-sidebar-right"></div>
 
     <div class="home-container">
-        <!-- Поиск -->
         <div class="search-wrapper">
             <form action="/info" method="get" class="search-form">
                 <input type="text" name="q" class="search-input" placeholder="🔍 Поиск достопримечательностей, мест, отелей..." required>
             </form>
         </div>
-
-        <!-- Основной контент -->
         <div class="main-content">
-            <!-- Левая колонка -->
             <div class="content-left">
                 <div class="info-card">
                     <div class="card-title">
@@ -30,7 +25,6 @@
                         места, которые вы можете изучить с помощью нашего сайта.
                     </div>
                 </div>
-
                 <div class="info-card">
                     <div class="card-title">
                         <i class="fas fa-mosque"></i>
@@ -56,28 +50,23 @@
                         <li>Остров-град Свияжск — уютный остров с деревянными домами, храмами и атмосферой старой Руси</li>
                         <li>Елабуга — купеческий город с музеями Цветаевой и Шишкина</li>
                     </ul>
-
                     <h3 style="color: #667eea; margin-top: 1.5rem;">🌲 Природа Татарстана</h3>
                     <ul class="info-list">
                         <li>Голубые озера — кристально чистая вода и живописные тропы для прогулок</li>
                         <li>Национальный парк «Нижняя Кама» — место для экотуризма, велопрогулок и наблюдения за птицами</li>
                         <li>Раифский монастырь — умиротворяющее место у озера, окруженное лесом</li>
                     </ul>
-
                     <h3 style="color: #667eea; margin-top: 1.5rem;">🍽️ Гастрономическое путешествие</h3>
                     <ul class="info-list">
                         <li>Эчпочмак, беляши, чак-чак — попробуйте настоящую татарскую кухню!</li>
                         <li>Чай с блинами (коймак) — традиционное угощение с душистым татарским чаем</li>
                         <li>Казылык и катлама — мясные деликатесы и выпечка, которые стоит привезти домой</li>
                     </ul>
-
                     <div class="contact-box" style="margin-top: 2rem;">
                         <strong style="color: #ffd700;">✈️ Откройте для себя Татарстан — край, где каждый найдет что-то свое!</strong>
                     </div>
                 </div>
             </div>
-
-            <!-- Правая колонка -->
             <div class="content-right">
                 <div class="info-card">
                     <div class="card-title">
@@ -93,24 +82,6 @@
                         <li>🍽️ Просмотр ресторанов</li>
                     </ul>
                 </div>
-
-                <!-- <div class="info-card">
-                    <div class="card-title">
-                        <i class="fas fa-bug"></i>
-                        <span>Обратная связь</span>
-                    </div>
-                    <div class="main-info">
-                        Есть идеи для сайта или вы нашли баг?
-                    </div>
-                    <div class="main-info">
-                        Пишите к нам на почту, мы читаем ваши предложения. Скиньте скрин бага или опишите ошибку — постараемся решить проблему как можно быстрее!
-                    </div>
-                    <div class="contact-box">
-                        <i class="fas fa-envelope"></i> Наш email:<br>
-                        <a href="mailto:info@example.com" class="email-link">mail@gmail.com</a>
-                    </div>
-                </div> -->
-
                 <div class="info-card">
                     <div class="card-title">
                         <i class="fas fa-question-circle"></i>
@@ -199,8 +170,6 @@
       color: rgba(255, 255, 255, 0.6);
       pointer-events: none;
   }
-
-  /* Основной контент */
   .main-content {
       display: flex;
       gap: 2rem;
@@ -216,8 +185,6 @@
       flex: 1;
       min-width: 250px;
   }
-
-  /* Карточки с информацией */
   .info-card {
       background: rgba(255, 255, 255, 0.1);
       backdrop-filter: blur(10px);
@@ -288,7 +255,6 @@
       position: relative;
       color: rgba(255, 255, 255, 0.9);
   }
-
   .feature-list li:before {
       content: '\f061';
       font-family: 'Font Awesome 5 Free';
@@ -298,7 +264,6 @@
       color: #ffd700;
       font-size: 0.9rem;
   }
-
   .contact-box {
       background: linear-gradient(135deg, rgba(102, 126, 234, 0.2), rgba(118, 75, 162, 0.2));
       border-radius: 15px;
@@ -318,8 +283,6 @@
       color: #fff;
       text-decoration: underline;
   }
-
-  /* Адаптивность */
   @media (max-width: 1024px) {
       .home-sidebar-left,
       .home-sidebar-right {
@@ -330,7 +293,6 @@
           padding: 1rem;
       }
   }
-
   @media (max-width: 768px) {
       .card-title {
           font-size: 1.2rem;
@@ -340,8 +302,6 @@
           font-size: 1rem;
       }
   }
-
-  /* Анимации */
   @keyframes fadeInUp {
       from {
           opacity: 0;
@@ -352,20 +312,16 @@
           transform: translateY(0);
       }
   }
-
   .search-wrapper {
       animation: fadeInUp 0.6s ease-out;
   }
-
   .info-card {
       animation: fadeInUp 0.6s ease-out;
   }
-
   .content-right .info-card {
       animation: fadeInUp 0.6s ease-out 0.1s both;
   }
 </style>
 
 {{ template "footer" }}
-
 {{ end }}

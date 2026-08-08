@@ -9,7 +9,7 @@ type Location struct {
 	ID       	string   `json:"id"`
 	Name     	string   `json:"name"`
 	Address  	string   `json:"address_name"`
-	Point 	 	Point	  `json:"point"` // все координаты
+	Point 	 	Point	 `json:"point"` // все координаты
 }
 
 type ViewLocation struct{

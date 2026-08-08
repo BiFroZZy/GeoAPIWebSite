@@ -10,8 +10,10 @@ import (
 var logs = logger.Logger()
 
 type Configs struct{
-	ServerPort 	string `envconfig:"SERVER_PORT" required:"true"`
-	APIkey 	string `envconfig:"API_KEY" required:"true"`
+	ImageSize	string	
+	Zoom 		string	
+	ServerPort 	string 	`envconfig:"SERVER_PORT" required:"true"`
+	APIkey 		string 	`envconfig:"API_KEY" required:"true"`
 }
 
 func Load() (*Configs, error){
