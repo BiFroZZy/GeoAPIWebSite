@@ -15,6 +15,11 @@ Also to download all dependencies write this code in console:
 
     go mod tidy
 
+If you want to use it with Docker change in Dockerfile change `.env.example` to `.env` in this line `COPY --from=builder /app/.env.example ./.env.example` and then write this line in console: 
+
+    docker build -t "name_of_your_image" .
+    docker run -p port:port "name_of_your_image"
+
 # Screenshots
 
 Header
