@@ -4,7 +4,7 @@ import (
 	"context"
 	"html/template"
 	"io"
-	// "net/http"
+
 
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
@@ -75,7 +75,7 @@ func (s *Server) Start() error{
 		return err
 	}
 	s.SetRoutes()
-	if err := s.e.Start(s.cfg.ServerPort); err !=nil{
+	if err := s.e.Start(s.cfg.ServerPort); err != nil{
 		logger.Error().Err(err).Msg("Failed to start server")
 		return err
 	}

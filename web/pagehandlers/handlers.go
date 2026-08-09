@@ -57,6 +57,11 @@ func SearchPage(c echo.Context) error{
 			Lon: 		loc.Point.Lon,
 			MapURL:     mapURL,
 		}
+		
+		err := models.Validation(vl)
+		if err != nil{
+			return err
+		}
 		viewLocations = append(viewLocations, vl)
 	}
 

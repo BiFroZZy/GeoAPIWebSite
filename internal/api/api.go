@@ -6,7 +6,7 @@ import (
 	"io"
 	"net/http"
 
-	"Geoapi/internal/logger"
+	log "Geoapi/internal/logger"
 	"Geoapi/internal/models"
 )
 
@@ -16,7 +16,7 @@ const (
 	imageSize = "600x400"
 	zoom = "17"
 )
-
+var logger = log.Logger()
 func GenerateStaticMapURL(lat, lon float64, apiKey string) (string) {
     if apiKey == "" {
         return "Can't get API!"
@@ -26,9 +26,7 @@ func GenerateStaticMapURL(lat, lon float64, apiKey string) (string) {
 }
 
 func SearchLocations(query string, apiKey string) ([]models.Location, error) { 
-	logger := logger.Logger()
 	url := fmt.Sprintf("%s?q=%s&key=%s&fields=items.point,items.address_name,items.photo_ids", apiBaseURL, query, apiKey)
-
 	resp, err := http.Get(url)
 	if err != nil {
 		return nil, fmt.Errorf("failed to call 2GIS API: %v", err)
@@ -44,7 +42,10 @@ func SearchLocations(query string, apiKey string) ([]models.Location, error) {
 	if err := json.NewDecoder(resp.Body).Decode(&apiResponse); err != nil {
 		return nil, fmt.Errorf("failed to decode API response: %v", err)
 	}
-
+	err = models.Validation(apiResponse)
+	if err != nil{
+		return nil,err
+	}
 	logger.Info().Msgf("Parsed locations %d: ", len(apiResponse.Result.Items))
 	return apiResponse.Result.Items, nil
 }
